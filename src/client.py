@@ -14,7 +14,7 @@ if __name__=='__main__':
         print('\n\n')
         print('### Task List ###:\n')
         task_list = stub.readTodos(todo_pb2.no_param())
-        print(task_list)
+        print(task_list.items)
     except Exception as e:
         print(e)
         print('Request Failed...')

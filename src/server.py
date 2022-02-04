@@ -14,11 +14,16 @@ class TodoServicer(todo_pb2_grpc.TodoServicer):
         self.todos.append(todoItem)
         return todoItem
     
+    '''
+    NOTE: when assigning to repeatable Message field types declare Message top Message object first (ie. todo_pb2.TodoItems()).
+    This allows you to reference the fields inside when adding to them because extend() and append() return None and act on the params
+    they're passed in.
+    '''
     def readTodos(self, request, context):
         taskList = todo_pb2.TodoItems()
         taskList.items.extend(self.todos)
-        print(taskList)
         return taskList
+    # TODO: implement readTodos but with a stream which is better.
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
