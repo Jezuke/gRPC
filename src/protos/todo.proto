@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package todoPpackage;
+
+service Todo {
+    rpc createTodo(TodoItem) returns (TodoItem);
+    rpc readTodos(void) returns (TodoItems);
+}
+
+// Can't leave empty input arg, must specify a message for void/empty/or whatevs
+message void {}
+
+message TodoItem {
+    int32 id = 1;
+    string text = 2;
+}
+
+message TodoItems{
+    repeated TodoItem items = 1;
+}
