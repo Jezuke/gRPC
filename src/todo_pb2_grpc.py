@@ -21,7 +21,7 @@ class TodoStub(object):
                 )
         self.readTodos = channel.unary_unary(
                 '/todoPpackage.Todo/readTodos',
-                request_serializer=todo__pb2.void.SerializeToString,
+                request_serializer=todo__pb2.no_param.SerializeToString,
                 response_deserializer=todo__pb2.TodoItems.FromString,
                 )
 
@@ -51,7 +51,7 @@ def add_TodoServicer_to_server(servicer, server):
             ),
             'readTodos': grpc.unary_unary_rpc_method_handler(
                     servicer.readTodos,
-                    request_deserializer=todo__pb2.void.FromString,
+                    request_deserializer=todo__pb2.no_param.FromString,
                     response_serializer=todo__pb2.TodoItems.SerializeToString,
             ),
     }
@@ -93,7 +93,7 @@ class Todo(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/todoPpackage.Todo/readTodos',
-            todo__pb2.void.SerializeToString,
+            todo__pb2.no_param.SerializeToString,
             todo__pb2.TodoItems.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

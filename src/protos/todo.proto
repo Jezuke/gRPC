@@ -4,11 +4,11 @@ package todoPpackage;
 
 service Todo {
     rpc createTodo(TodoItem) returns (TodoItem);
-    rpc readTodos(void) returns (TodoItems);
+    rpc readTodos(no_param) returns (TodoItems);
 }
 
 // Can't leave empty input arg, must specify a message for void/empty/or whatevs
-message void {}
+message no_param {}
 
 message TodoItem {
     int32 id = 1;
