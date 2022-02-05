@@ -5,9 +5,11 @@ package todoPpackage;
 service Todo {
     rpc createTodo(TodoItem) returns (TodoItem);
     rpc readTodos(no_param) returns (TodoItems);
+    rpc readTodosStream(no_param) returns (stream TodoItem); // Stream version of the readTodos. Doesn't even need TodoItems message
 }
 
 // Can't leave empty input arg, must specify a message for void/empty/or whatevs
+// Try looking into protoBufs Empty message type. Might be able to just import that.
 message no_param {}
 
 message TodoItem {

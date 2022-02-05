@@ -24,6 +24,11 @@ class TodoStub(object):
                 request_serializer=todo__pb2.no_param.SerializeToString,
                 response_deserializer=todo__pb2.TodoItems.FromString,
                 )
+        self.readTodosStream = channel.unary_stream(
+                '/todoPpackage.Todo/readTodosStream',
+                request_serializer=todo__pb2.no_param.SerializeToString,
+                response_deserializer=todo__pb2.TodoItem.FromString,
+                )
 
 
 class TodoServicer(object):
@@ -41,6 +46,13 @@ class TodoServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def readTodosStream(self, request, context):
+        """Stream version of the readTodos. Doesn't even need TodoItems message
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_TodoServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -53,6 +65,11 @@ def add_TodoServicer_to_server(servicer, server):
                     servicer.readTodos,
                     request_deserializer=todo__pb2.no_param.FromString,
                     response_serializer=todo__pb2.TodoItems.SerializeToString,
+            ),
+            'readTodosStream': grpc.unary_stream_rpc_method_handler(
+                    servicer.readTodosStream,
+                    request_deserializer=todo__pb2.no_param.FromString,
+                    response_serializer=todo__pb2.TodoItem.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -95,5 +112,22 @@ class Todo(object):
         return grpc.experimental.unary_unary(request, target, '/todoPpackage.Todo/readTodos',
             todo__pb2.no_param.SerializeToString,
             todo__pb2.TodoItems.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def readTodosStream(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/todoPpackage.Todo/readTodosStream',
+            todo__pb2.no_param.SerializeToString,
+            todo__pb2.TodoItem.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

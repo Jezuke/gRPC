@@ -7,7 +7,7 @@ import todo_pb2_grpc
 class TodoServicer(todo_pb2_grpc.TodoServicer):
     """Provides methods that implement functionality of TodoServicer."""
     def __init__(self):
-        self.todos = []
+        self.todos = [] # List of TodoItem() objects
 
     def createTodo(self, request, context):
         todoItem = todo_pb2.TodoItem(id=len(self.todos)+1, text=request.text)
@@ -23,7 +23,14 @@ class TodoServicer(todo_pb2_grpc.TodoServicer):
         taskList = todo_pb2.TodoItems()
         taskList.items.extend(self.todos)
         return taskList
-    # TODO: implement readTodos but with a stream which is better.
+
+    '''
+    NOTE: Can't use 'return', gotta use 'yield' since the return type of readTodosStream is a 'stream' and thus requires
+    a generator since we don't want to return the whole list at once, but only one at a time.
+    '''
+    def readTodosStream(self, request, context):
+        for item in self.todos:
+            yield item
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))

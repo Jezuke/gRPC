@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\ntodo.proto\x12\x0ctodoPpackage\"\n\n\x08no_param\"$\n\x08TodoItem\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x0c\n\x04text\x18\x02 \x01(\t\"2\n\tTodoItems\x12%\n\x05items\x18\x01 \x03(\x0b\x32\x16.todoPpackage.TodoItem2\x82\x01\n\x04Todo\x12<\n\ncreateTodo\x12\x16.todoPpackage.TodoItem\x1a\x16.todoPpackage.TodoItem\x12<\n\treadTodos\x12\x16.todoPpackage.no_param\x1a\x17.todoPpackage.TodoItemsb\x06proto3'
+  serialized_pb=b'\n\ntodo.proto\x12\x0ctodoPpackage\"\n\n\x08no_param\"$\n\x08TodoItem\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x0c\n\x04text\x18\x02 \x01(\t\"2\n\tTodoItems\x12%\n\x05items\x18\x01 \x03(\x0b\x32\x16.todoPpackage.TodoItem2\xc7\x01\n\x04Todo\x12<\n\ncreateTodo\x12\x16.todoPpackage.TodoItem\x1a\x16.todoPpackage.TodoItem\x12<\n\treadTodos\x12\x16.todoPpackage.no_param\x1a\x17.todoPpackage.TodoItems\x12\x43\n\x0freadTodosStream\x12\x16.todoPpackage.no_param\x1a\x16.todoPpackage.TodoItem0\x01\x62\x06proto3'
 )
 
 
@@ -157,7 +157,7 @@ _TODO = _descriptor.ServiceDescriptor(
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
   serialized_start=131,
-  serialized_end=261,
+  serialized_end=330,
   methods=[
   _descriptor.MethodDescriptor(
     name='createTodo',
@@ -176,6 +176,16 @@ _TODO = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_NO_PARAM,
     output_type=_TODOITEMS,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='readTodosStream',
+    full_name='todoPpackage.Todo.readTodosStream',
+    index=2,
+    containing_service=None,
+    input_type=_NO_PARAM,
+    output_type=_TODOITEM,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
